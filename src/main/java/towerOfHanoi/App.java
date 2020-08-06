@@ -27,10 +27,10 @@ public class App extends window{
     @Override
     public void settings() {
         size(900,800);
-        addScene(new scene(this, "test"));
-        selectScene("test");
-        getSelectedScene().addEntity(new Hanoi(getSelectedScene(),this, "hanoi"), "hanoi");
-        println(this.dataPath(""));
+        addScene(new scene(this, "Hanoi"));
+        getScene("Hanoi").addEntity(new Hanoi(getScene("Hanoi"),this, "hanoi"), "hanoi");
+        addScene(new WelcomeScene(this, "main"));
+        selectScene("main");
 
     }
 

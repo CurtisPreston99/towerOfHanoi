@@ -12,8 +12,6 @@ class Hanoi extends entity {
     ArrayList<ArrayList<Integer>> disks;
     int size=3;
     int moves =0;
-
-
     boolean carry=false;
     int carrySize=0;
     int from=0;
@@ -32,6 +30,9 @@ class Hanoi extends entity {
         disks.add(t);
         disks.add(new  ArrayList<>());
         disks.add(new  ArrayList<>());
+        moves=0;
+        carry=false;
+
 
     }
 
@@ -39,7 +40,6 @@ class Hanoi extends entity {
     public void click() {
         mouse m=w.input.Mouse;
         int x=m.X();
-        w.print(x);
         if(m.left){
             if(m.X()<(w.width/8)*3 && disks.get(0).size()>0){
                 carry=true;
@@ -74,12 +74,18 @@ class Hanoi extends entity {
             carry=false;
 
             if(disks.get(too).size()==0 || disks.get(too).get(0)>carrySize ){
+                moves++;
                 disks.get(too).add(0,carrySize);
             }else{
                 disks.get(from).add(0,carrySize);
             }
 
         }
+
+        if(complete(disks)){
+            w.selectScene("main");
+        }
+
 
     }
 
@@ -128,6 +134,17 @@ class Hanoi extends entity {
 
     }
 
+    public boolean complete(ArrayList<ArrayList<Integer>> d){
+        // last peg check
+        ArrayList<Integer> baseLine= new ArrayList<Integer>();
+        for(int i=0;i<size;i++){
+            baseLine.add(i);
+        }
+        // first two poles empty and 3rd has all disks in order 
+        return (d.get(0).size()==0 && d.get(1).size()==0 && d.get(2).equals(baseLine));
+
+    }
+
     @Override
     public void key() {
 
@@ -135,14 +152,6 @@ class Hanoi extends entity {
 
     @Override
     public void update(window arg0) {
-        // for(ArrayList<Integer>i:disks){
-        //     w.println(i);
-        // }
-        // if(carry){
-        //     w.print("carry: ");
-        //     w.print(carrySize);
-        // }
-        // w.println("----");
 
     }
 
