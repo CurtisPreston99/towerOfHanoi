@@ -5,9 +5,213 @@ package towerOfHanoi;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static java.time.Duration.ofMinutes;
+
+import java.util.ArrayList;
 
 class AppTest {
-    @Test void appHasAGreeting() {
-        assertNotNull("memes", "app should have a greeting");
+    ArrayList<ArrayList<Integer>> genBoard(int size) {
+        ArrayList<ArrayList<Integer>> poles = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> one=new ArrayList<Integer>();
+        for(int i=0;i<size;i++){
+            one.add(i);
+        }
+        poles.add(one);
+        poles.add(new ArrayList<Integer>());
+        poles.add(new ArrayList<Integer>());
+        
+        return poles;
     }
+    @Test void Twohigh() {
+        ArrayList<ArrayList<Integer>> poles=genBoard(2);
+        // System.out.println(poles);
+
+        ArrayList<int[]> moves=HanoiSolver.solve(poles, 2);
+        for(int[] i:moves){
+            HanoiSolver.swap(i[0], i[1], poles);
+        }
+
+        ArrayList<ArrayList<Integer>> outcome=genBoard(2);
+        ArrayList<Integer> onp=outcome.get(0);
+        outcome.remove(0);
+        outcome.add(onp);
+        // System.out.println(outcome);
+        // System.out.println(poles);
+        assertTrue(outcome.equals(poles));
+    }
+
+
+    @Test void Threehigh() {
+        ArrayList<ArrayList<Integer>> poles=genBoard(3);
+        // System.out.println(poles);
+
+        ArrayList<int[]> moves=HanoiSolver.solve(poles, 3);
+        for(int[] i:moves){
+            HanoiSolver.swap(i[0], i[1], poles);
+        }
+
+        ArrayList<ArrayList<Integer>> outcome=genBoard(3);
+        ArrayList<Integer> onp=outcome.get(0);
+        outcome.remove(0);
+        outcome.add(onp);
+        // System.out.println(outcome);
+        // System.out.println(poles);
+        assertTrue(outcome.equals(poles));
+    }
+
+    @Test void fourhigh() {
+        int size=4;
+        ArrayList<ArrayList<Integer>> poles=genBoard(size);
+        // System.out.println(poles);
+
+        ArrayList<int[]> moves=HanoiSolver.solve(poles, size);
+        for(int[] i:moves){
+            HanoiSolver.swap(i[0], i[1], poles);
+        }
+
+        ArrayList<ArrayList<Integer>> outcome=genBoard(size);
+        ArrayList<Integer> onp=outcome.get(0);
+        outcome.remove(0);
+        outcome.add(onp);
+        // System.out.println(outcome);
+        // System.out.println(poles);
+        assertTrue(outcome.equals(poles));
+    }
+
+    @Test void fivehigh() {
+        int size=5;
+        ArrayList<ArrayList<Integer>> poles=genBoard(size);
+        // System.out.println(poles);
+
+        ArrayList<int[]> moves=HanoiSolver.solve(poles, size);
+        for(int[] i:moves){
+            HanoiSolver.swap(i[0], i[1], poles);
+        }
+
+        ArrayList<ArrayList<Integer>> outcome=genBoard(size);
+        ArrayList<Integer> onp=outcome.get(0);
+        outcome.remove(0);
+        outcome.add(onp);
+        // System.out.println(outcome);
+        // System.out.println(poles);
+        assertTrue(outcome.equals(poles));
+    }
+    @Test void sixhigh() {
+        int size=6;
+        ArrayList<ArrayList<Integer>> poles=genBoard(size);
+        // System.out.println(poles);
+
+        ArrayList<int[]> moves=HanoiSolver.solve(poles, size);
+        for(int[] i:moves){
+            HanoiSolver.swap(i[0], i[1], poles);
+        }
+
+        ArrayList<ArrayList<Integer>> outcome=genBoard(size);
+        ArrayList<Integer> onp=outcome.get(0);
+        outcome.remove(0);
+        outcome.add(onp);
+        // System.out.println(outcome);
+        // System.out.println(poles);
+        assertTrue(outcome.equals(poles));
+    }
+
+    @Test void sevenhigh() {
+        int size=7;
+        ArrayList<ArrayList<Integer>> poles=genBoard(size);
+        // System.out.println(poles);
+
+        ArrayList<int[]> moves=HanoiSolver.solve(poles, size);
+        for(int[] i:moves){
+            HanoiSolver.swap(i[0], i[1], poles);
+        }
+
+        ArrayList<ArrayList<Integer>> outcome=genBoard(size);
+        ArrayList<Integer> onp=outcome.get(0);
+        outcome.remove(0);
+        outcome.add(onp);
+        // System.out.println(outcome);
+        // System.out.println(poles);
+        assertTrue(outcome.equals(poles));
+    }
+
+    @Test void eighthigh() {
+        int size=8;
+        ArrayList<ArrayList<Integer>> poles=genBoard(size);
+        // System.out.println(poles);
+
+        ArrayList<int[]> moves=HanoiSolver.solve(poles, size);
+        for(int[] i:moves){
+            HanoiSolver.swap(i[0], i[1], poles);
+        }
+
+        ArrayList<ArrayList<Integer>> outcome=genBoard(size);
+        ArrayList<Integer> onp=outcome.get(0);
+        outcome.remove(0);
+        outcome.add(onp);
+        // System.out.println(outcome);
+        // System.out.println(poles);
+        assertTrue(outcome.equals(poles));
+    }
+
+
+    @Test void ninehigh() {
+        int size=9;
+        ArrayList<ArrayList<Integer>> poles=genBoard(size);
+        // System.out.println(poles);
+
+        ArrayList<int[]> moves=HanoiSolver.solve(poles, size);
+        for(int[] i:moves){
+            HanoiSolver.swap(i[0], i[1], poles);
+        }
+
+        ArrayList<ArrayList<Integer>> outcome=genBoard(size);
+        ArrayList<Integer> onp=outcome.get(0);
+        outcome.remove(0);
+        outcome.add(onp);
+        // System.out.println(outcome);
+        // System.out.println(poles);
+        assertTrue(outcome.equals(poles));
+    }
+
+    @Test void tenhigh() {
+        int size=10;
+        ArrayList<ArrayList<Integer>> poles=genBoard(size);
+        // System.out.println(poles);
+
+        ArrayList<int[]> moves=HanoiSolver.solve(poles, size);
+        for(int[] i:moves){
+            HanoiSolver.swap(i[0], i[1], poles);
+        }
+
+        ArrayList<ArrayList<Integer>> outcome=genBoard(size);
+        ArrayList<Integer> onp=outcome.get(0);
+        outcome.remove(0);
+        outcome.add(onp);
+        // System.out.println(outcome);
+        // System.out.println(poles);
+        assertTrue(outcome.equals(poles));
+    }
+
+    // @Test
+    //  void elevenhigh() {
+    //     assertTimeout(ofMinutes(2), () -> {
+    //         int size=11;
+    //     ArrayList<ArrayList<Integer>> poles=genBoard(size);
+    //     // System.out.println(poles);
+
+    //     ArrayList<int[]> moves=HanoiSolver.solve(poles, size);
+    //     for(int[] i:moves){
+    //         HanoiSolver.swap(i[0], i[1], poles);
+    //     }
+
+    //     ArrayList<ArrayList<Integer>> outcome=genBoard(size);
+    //     ArrayList<Integer> onp=outcome.get(0);
+    //     outcome.remove(0);
+    //     outcome.add(onp);
+    //     // System.out.println(outcome);
+    //     // System.out.println(poles);
+    //     assertTrue(outcome.equals(poles));
+    //     });
+        
+    // }
 }
