@@ -16,7 +16,12 @@ public class WelcomeScene extends scene {
                 "playButton");
         addUIEntity(new button((Parrent.width / 2) + 100, Parrent.height / 2, 200, 20, "exit", this, Parrent),
                 "exitButton");
-                }
+
+        addUIEntity(new text(Parrent.width/2, (Parrent.height / 2)-100, 200, 20,  this, Parrent,"Towers of Hanoi"),
+                "title");
+    }
+
+    
 
     @Override
     public void tick() {
