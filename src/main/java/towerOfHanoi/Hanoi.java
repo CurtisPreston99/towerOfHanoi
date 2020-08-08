@@ -15,6 +15,7 @@ class Hanoi extends entity {
     boolean carry = false;
     int carrySize = 0;
     int from = 0;
+    boolean done = false;
 
     boolean solving = false;
     int place = 0;
@@ -37,17 +38,19 @@ class Hanoi extends entity {
         disks.add(new ArrayList<>());
         moves = 0;
         carry = false;
+        done=false;
+        solving=false;
 
     }
 
     @Override
     public void click() {
-        
-        if (!solving) {
+        mouse m = w.input.Mouse;
+        int y = m.Y();
+        if (!solving && y>w.height / 4 && !done) {
         // if (true) {
 
-            mouse m = w.input.Mouse;
-            int x = m.X();
+            
             if (m.left) {
                 if (m.X() < (w.width / 8) * 3 && disks.get(0).size() > 0) {
                     carry = true;
@@ -139,6 +142,7 @@ class Hanoi extends entity {
             int y = w.input.Mouse.Y();
             b.rect(x, y, (carrySize + 1) * diskWidth, diskWidth);
         }
+        b.rectMode(b.CORNER);
 
     }
 
@@ -149,16 +153,16 @@ class Hanoi extends entity {
             baseLine.add(i);
         }
         // first two poles empty and 3rd has all disks in order
-        return (d.get(2).equals(baseLine));
+        return (d.get(0).size()==0&&d.get(1).size()==0&&d.get(2).equals(baseLine));
 
     }
 
-    @Override
-    public void key() {
 
-        if (w.input.Lastkey == 's' && !solving) {
+    public void solve(){
+        if(!solving){
             long start=System.currentTimeMillis();
-            solvingM=HanoiSolver.solve(disks, size);
+            w.print("start");
+            solvingM=HanoiSolver.solve((ArrayList<ArrayList<Integer>>) disks.clone(), size);
             long after=System.currentTimeMillis();
 
             System.out.println(solvingM.size());
@@ -166,20 +170,35 @@ class Hanoi extends entity {
             solving=true;
             place=0;
         }
+    }
+
+    public Boolean solveStep(){
+        if(solving){
+            int[] p=solvingM.get(place);
+            // System.out.println("-");
+            // win.printArray(p);
+            // System.out.println("-");
+            HanoiSolver.swap(p[0], p[1], disks);
+            // System.out.println(place);
+            moves++;
+            place++;
+            if(place>=solvingM.size()){
+                solving=false;
+            }
+        }   
+        return solving;
+    }
+
+    @Override
+    public void key() {
+
+        if (w.input.Lastkey == 's' && !solving) {
+            solve();
+        }
         if(solving){
             MoveSpeed-=1;
             if(MoveSpeed<2){
-                while(solving){
-                    int[] p=solvingM.get(place);
-                    // System.out.println("-");
-                    // win.printArray(p);
-                    // System.out.println("-");
-                    HanoiSolver.swap(p[0], p[1], disks);
-                    // System.out.println(place);
-                    place++;
-                    if(place>=solvingM.size()){
-                        solving=false;
-                    }
+                while(solveStep()){
                 }
             }
         }
@@ -189,24 +208,12 @@ class Hanoi extends entity {
     @Override
     public void update(window win) {
         if(win.frameCount%10==0){
-            if (complete(disks)) {
-                w.selectScene("main");
-            }
+            done=complete(disks);
         }
 
         if(win.frameCount%MoveSpeed==0){
             if(solving==true){
-                int[] p=solvingM.get(place);
-                // System.out.println("-");
-                // win.printArray(p);
-                // System.out.println("-");
-                HanoiSolver.swap(p[0], p[1], disks);
-                // System.out.println(place);
-                place++;
-                if(place>=solvingM.size()){
-                    solving=false;
-                }
-    
+                solveStep();
             }
         }
         

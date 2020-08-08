@@ -10,13 +10,15 @@ public class HanoiSolver {
 
 
     public static ArrayList<int[]> solve(ArrayList<ArrayList<Integer>> s,int size){
+        // System.out.println(s);
         // System.out.println(new state(s,size));
+
         ArrayList<state> f=new ArrayList<state>();
         f.add(new state(s,size));
         state done=solver(f,new HashSet<state>());
-        // System.out.println(done);
-        // System.out.println(done.moves);
 
+        System.out.println(done);
+        System.out.println(done.moves);
         return done.moves;
 
     }
@@ -26,6 +28,8 @@ public class HanoiSolver {
         // System.out.println(frontier.size());        
         // System.out.println(checked);
         // System.out.println(checked.size());
+        // System.out.println("--------");
+
         ArrayList<state> NewFrountier=new ArrayList<state>();
         int[][] moves={{0,1},{0,2},{1,0},{1,2},{2,0},{2,1}};
         for(state f:frontier){

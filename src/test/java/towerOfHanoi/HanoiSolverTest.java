@@ -9,7 +9,7 @@ import static java.time.Duration.ofMinutes;
 
 import java.util.ArrayList;
 
-class AppTest {
+class HanoiSolverTest {
     ArrayList<ArrayList<Integer>> genBoard(int size) {
         ArrayList<ArrayList<Integer>> poles = new ArrayList<ArrayList<Integer>>();
         ArrayList<Integer> one=new ArrayList<Integer>();
@@ -177,6 +177,28 @@ class AppTest {
         int size=10;
         ArrayList<ArrayList<Integer>> poles=genBoard(size);
         // System.out.println(poles);
+
+        ArrayList<int[]> moves=HanoiSolver.solve(poles, size);
+        for(int[] i:moves){
+            HanoiSolver.swap(i[0], i[1], poles);
+        }
+
+        ArrayList<ArrayList<Integer>> outcome=genBoard(size);
+        ArrayList<Integer> onp=outcome.get(0);
+        outcome.remove(0);
+        outcome.add(onp);
+        // System.out.println(outcome);
+        // System.out.println(poles);
+        assertTrue(outcome.equals(poles));
+    }
+
+
+    @Test void TwohighMoved() {
+        int size=2;
+        ArrayList<ArrayList<Integer>> poles=genBoard(size);
+        // System.out.println(poles);
+        HanoiSolver.swap(0, 1, poles);
+
 
         ArrayList<int[]> moves=HanoiSolver.solve(poles, size);
         for(int[] i:moves){
