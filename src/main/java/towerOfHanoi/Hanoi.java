@@ -20,7 +20,7 @@ class Hanoi extends entity {
     boolean solving = false;
     int place = 0;
     ArrayList<int[]> solvingM;
-    int MoveSpeed=10;
+    int MoveSpeed = 10;
 
     public Hanoi(scene s, window w, String name) {
         super(0, 0, w.width, w.height, s, w, name);
@@ -38,8 +38,8 @@ class Hanoi extends entity {
         disks.add(new ArrayList<>());
         moves = 0;
         carry = false;
-        done=false;
-        solving=false;
+        done = false;
+        solving = false;
 
     }
 
@@ -47,10 +47,9 @@ class Hanoi extends entity {
     public void click() {
         mouse m = w.input.Mouse;
         int y = m.Y();
-        if (!solving && y>w.height / 4 && !done) {
-        // if (true) {
+        if (!solving && y > w.height / 4 && !done) {
+            // if (true) {
 
-            
             if (m.left) {
                 if (m.X() < (w.width / 8) * 3 && disks.get(0).size() > 0) {
                     carry = true;
@@ -84,7 +83,7 @@ class Hanoi extends entity {
                 }
                 carry = false;
 
-                if (disks.get(too).size() == 0 || disks.get(too).get(0) > carrySize) {
+                if (disks.get(too).size() == 0 || disks.get(too).get(0) > carrySize && too != from) {
                     moves++;
                     disks.get(too).add(0, carrySize);
                 } else {
@@ -93,10 +92,8 @@ class Hanoi extends entity {
 
             }
 
-            
-
         }
-        
+
     }
 
     @Override
@@ -153,28 +150,27 @@ class Hanoi extends entity {
             baseLine.add(i);
         }
         // first two poles empty and 3rd has all disks in order
-        return (d.get(0).size()==0&&d.get(1).size()==0&&d.get(2).equals(baseLine));
+        return (d.get(0).size() == 0 && d.get(1).size() == 0 && d.get(2).equals(baseLine));
 
     }
 
-
-    public void solve(){
-        if(!solving){
-            long start=System.currentTimeMillis();
+    public void solve() {
+        if (!solving) {
+            long start = System.currentTimeMillis();
             w.print("start");
-            solvingM=HanoiSolver.solve((ArrayList<ArrayList<Integer>>) disks.clone(), size);
-            long after=System.currentTimeMillis();
+            solvingM = HanoiSolver.solve((ArrayList<ArrayList<Integer>>) disks.clone(), size);
+            long after = System.currentTimeMillis();
 
             System.out.println(solvingM.size());
-            System.out.println(after-start);
-            solving=true;
-            place=0;
+            System.out.println(after - start);
+            solving = true;
+            place = 0;
         }
     }
 
-    public Boolean solveStep(){
-        if(solving){
-            int[] p=solvingM.get(place);
+    public Boolean solveStep() {
+        if (solving) {
+            int[] p = solvingM.get(place);
             // System.out.println("-");
             // win.printArray(p);
             // System.out.println("-");
@@ -182,10 +178,10 @@ class Hanoi extends entity {
             // System.out.println(place);
             moves++;
             place++;
-            if(place>=solvingM.size()){
-                solving=false;
+            if (place >= solvingM.size()) {
+                solving = false;
             }
-        }   
+        }
         return solving;
     }
 
@@ -195,10 +191,10 @@ class Hanoi extends entity {
         if (w.input.Lastkey == 's' && !solving) {
             solve();
         }
-        if(solving){
-            MoveSpeed-=1;
-            if(MoveSpeed<2){
-                while(solveStep()){
+        if (solving) {
+            MoveSpeed -= 1;
+            if (MoveSpeed < 2) {
+                while (solveStep()) {
                 }
             }
         }
@@ -207,18 +203,16 @@ class Hanoi extends entity {
 
     @Override
     public void update(window win) {
-        if(win.frameCount%10==0){
-            done=complete(disks);
+        if (win.frameCount % 10 == 0) {
+            done = complete(disks);
         }
 
-        if(win.frameCount%MoveSpeed==0){
-            if(solving==true){
+        if (win.frameCount % MoveSpeed == 0) {
+            if (solving == true) {
                 solveStep();
             }
         }
-        
 
-        
     }
 
     public ArrayList<ArrayList<Integer>> getState() {
